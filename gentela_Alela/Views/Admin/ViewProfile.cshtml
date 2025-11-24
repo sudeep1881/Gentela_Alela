@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["title"] = "View Profile";
+    int? userid = Context.Session.GetInt32(SD.KeyUser);
+    int? roleid = Context.Session.GetInt32(SD.KeyRole);
+
+    string? username = Context.Session.GetString(SD.KeyName);
+    string? userGender = Context.Session.GetString(SD.KeyGender);
+    string? userDob = Context.Session.GetString(SD.KeyDob);
+    string? userEmail = Context.Session.GetString(SD.KeyEmail);
+    string? userCountry = Context.Session.GetString(SD.KeyCountry);
+    string? userDistict = Context.Session.GetString(SD.KeyDistrict);
+    string? userState = Context.Session.GetString(SD.KeyState);
+    string? userNumber = Context.Session.GetString(SD.KeyPhoneNumber!);
+}
+
+
+
+<div class="right_col" role="main">
+    <div class="">
+        <div class="card" >
+            <div class="card-header" style=" height: 50px;
+                 display: flex;
+                 align-items: center;
+                 padding-left: 10px;
+                 background-color: white;
+                 border-bottom: 1px solid #ccc;">
+                <h4 style="color:black; margin:0;">
+                    Manage Profile / <span style="font-weight:normal;">View Profile(Admin)</span>
+                </h4>
+
+            </div>
+            <div class="card-body">
+                <h2 style="color:dimgrey" ><b>Profile Details</b></h2>
+                <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <th style="width: 30%; background-color:#f9f9f9;">Name</th>
+                        <td>@username</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%; background-color:#f9f9f9;">Gender</th>
+                        <td>@userGender</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%; background-color:#f9f9f9;">Date Of Birth</th>
+                        <td>@userDob</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%; background-color:#f9f9f9;">Phone Number</th>
+                        <td>@userNumber</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%; background-color:#f9f9f9;">Country</th>
+                        <td>@userCountry</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%; background-color:#f9f9f9;">State</th>
+                        <td>@userState</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%; background-color:#f9f9f9;">District</th>
+                        <td>@userDistict</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%; background-color:#f9f9f9;">Email</th>
+                        <td>@userEmail</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

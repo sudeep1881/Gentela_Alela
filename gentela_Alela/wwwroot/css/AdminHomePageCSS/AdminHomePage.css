@@ -1,0 +1,43 @@
+﻿.sudeep {
+
+    margin: 0;
+
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fontfamilystyle {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.marginrightside {
+    margin-top: 70px;
+    
+}
+
+
+.card {
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background: linear-gradient(to right, #a4d3f7, #e3f2fd);
+    border-bottom: 1px solid #bcdffb;
+}
+
+.card-body {
+    padding: 25px;
+    color: #333;
+}
+
+ol {
+    margin-left: 25px;
+    line-height: 1.7;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+}

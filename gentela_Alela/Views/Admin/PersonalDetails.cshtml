@@ -1,0 +1,211 @@
+﻿@using gentela_Alela.Views.View_Model
+@model PersonalDetailsVM
+
+@{
+    ViewData["title"] = "Personal Details Registration";
+}
+
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Persnol Details Registration</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Registration<small></small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Settings 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
+
+                            <input asp-for="personalReg.Id"  type="hidden" class="form-control col-md-7 col-xs-12">
+
+                            <div class="form-group">
+                                <label asp-for="personalReg.RoleId" class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    Role <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select asp-for="personalReg.RoleId"
+                                            asp-items="@Model.RoleList"
+                                            class="form-control col-md-7 col-xs-12"
+                                            required>
+                                        <option disabled selected>----Select Role----</option>
+                                    </select>
+                                    <span asp-validation-for="personalReg.RoleId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br />
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                    Full Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input asp-for="personalReg.FullName" type="text" required="required" class="form-control col-md-7 col-xs-12">
+                                    <span asp-validation-for="personalReg.FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div id="gender" class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default">
+                                            <input asp-for="personalReg.Gender" type="radio" value="Male" autocomplete="off"> Male
+                                        </label>
+                                        <label class="btn btn-default">
+                                            <input asp-for="personalReg.Gender" type="radio" value="Female" autocomplete="off"> Female
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="personalReg.Gender" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    Date Of Birth <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input asp-for="personalReg.Dob" type="date" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input asp-for="personalReg.PhoneNo"  class="form-control col-md-7 col-xs-12" type="tel">
+                                    <span asp-validation-for="personalReg.PhoneNo" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input asp-for="personalReg.Email" class="form-control col-md-7 col-xs-12" type="email">
+                                    <span asp-validation-for="personalReg.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input asp-for="personalReg.Password" class="form-control col-md-7 col-xs-12" type="text">
+                                    <span asp-validation-for="personalReg.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br />
+                            <!-- Country -->
+                            <div class="form-group">
+                                <label asp-for="personalReg.CountryId" class="control-label col-md-3">Country</label>
+                                <div class="col-md-6">
+                                    <select asp-for="personalReg.CountryId"
+                                            asp-items="@Model.CountryList"
+                                            class="form-control"
+                                            id="CountryId">
+                                        <option value="">--Select Country--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <!-- State -->
+                            <div class="form-group">
+                                <label asp-for="personalReg.StateId" class="control-label col-md-3">State</label>
+                                <div class="col-md-6">
+                                    <select asp-for="personalReg.StateId"
+                                            class="form-control"
+                                            id="StateId">
+                                        <option value="">--Select State--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <!-- District -->
+                            <div class="form-group">
+                                <label asp-for="personalReg.DistrictId" class="control-label col-md-3">District</label>
+                                <div class="col-md-6">
+                                    <select asp-for="personalReg.DistrictId"
+                                            class="form-control"
+                                            id="DistrictId">
+                                        <option value="">--Select District--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+ 
+
+                            <div class="form-group">
+                                <label asp-for="personalReg.ProfileImage" class="control-label col-md-3 col-sm-3 col-xs-12">Profile Image</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input asp-for="personalReg.ProfileImage" type="file" name="fileProfileImage" id="fileProfileImage"
+                                           class="form-control"
+                                           style="width: 100%;"
+                                           accept="image/*" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    @if (Model.personalReg.Id == 0)
+                                    {
+                                        <button type="submit" class="btn btn-success">Submit </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-danger">update</button>
+                                    }
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/contry_s_s_ddl_js/contryddljs.js" asp-append-version="true"></script>
+}
+

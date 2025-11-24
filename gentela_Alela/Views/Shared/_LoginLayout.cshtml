@@ -1,0 +1,85 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+
+    int? userid = Context.Session.GetInt32(SD.KeyUser);
+    int? roleid = Context.Session.GetInt32(SD.KeyRole);
+
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap -->
+    <link href="~/gentela-pages/Page1/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/gentela-pages/Page1/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/gentela-pages/Page1/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="~/gentela-pages/Page1/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- Select2 -->
+    <link href="~/gentela-pages/Page1/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="~/gentela-pages/Page1/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="~/gentela-pages/Page1/vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="~/gentela-pages/Page1/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/gentela-pages/page1/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet" />
+    <!-- Custom Theme Style -->
+    <link href="~/gentela-pages/page1/build/css/custom.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container body" >
+        <div class="main_container">
+
+            @RenderBody()
+
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="~/gentela-pages/Page1/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/gentela-pages/Page1/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/gentela-pages/Page1/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/gentela-pages/Page1/vendors/nprogress/nprogress.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="~/gentela-pages/Page1/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/gentela-pages/Page1/vendors/iCheck/icheck.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="~/gentela-pages/Page1/vendors/moment/min/moment.min.js"></script>
+    <script src="~/gentela-pages/Page1/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-wysiwyg -->
+    <script src="~/gentela-pages/Page1/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="~/gentela-pages/Page1/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+    <script src="~/gentela-pages/Page1/vendors/google-code-prettify/src/prettify.js"></script>
+    <!-- jQuery Tags Input -->
+    <script src="~/gentela-pages/Page1/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+    <!-- Switchery -->
+    <script src="~/gentela-pages/Page1/vendors/switchery/dist/switchery.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/gentela-pages/Page1/vendors/select2/dist/js/select2.full.min.js"></script>
+
+    <!-- Autosize -->
+    <script src="~/gentela-pages/Page1/vendors/autosize/dist/autosize.min.js"></script>
+    <!-- jQuery autocomplete -->
+    <script src="~/gentela-pages/Page1/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+    <!-- starrr -->
+    <script src="~/gentela-pages/Page1/vendors/starrr/dist/starrr.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="~/gentela-pages/page1/build/js/custom.min.js"></script>
+    <partial name="__NotificationsLayout"></partial>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

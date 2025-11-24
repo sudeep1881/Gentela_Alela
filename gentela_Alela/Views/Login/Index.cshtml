@@ -1,0 +1,78 @@
+﻿@using gentela_Alela.Views.View_Model
+@model PersonalDetailsVM;
+@{
+    ViewData["Title"] = "Login Page";
+}
+<div class="container " id="container">
+    <div class="form-container sign-up-container">
+        <div style="overflow-y:auto; max-height:80vh; padding-right:10px;">
+            <form method="post" enctype="multipart/form-data">
+                <h1>Create Account</h1>
+
+                <input asp-for="personalReg.Id" type="hidden" />
+
+                <select asp-for="personalReg.RoleId" asp-items="@Model.RoleList" class="form-input" required>
+                    <option disabled selected>----Select Role----</option>
+                </select>
+
+                <input asp-for="personalReg.FullName" type="text" placeholder="Name" class="form-input" />
+                <input asp-for="personalReg.Dob" type="date" placeholder="DOB" class="form-input" />
+                <input asp-for="personalReg.Gender" type="text" placeholder="Gender" class="form-input" />
+                <input asp-for="personalReg.Email" type="email" placeholder="Email" class="form-input" autocomplete="new-email" />
+                <input asp-for="personalReg.Password" type="password" placeholder="Password" class="form-input" autocomplete="new-password" />
+
+                <select id="countryDropdown" asp-for="personalReg.CountryId" class="form-input" required>
+                    <option value="">--Select Country--</option>
+                </select>
+
+                <select id="stateDropdown" asp-for="personalReg.StateId" class="form-input" required>
+                    <option value="">--Select State--</option>
+                </select>
+
+                <select id="districtDropdown" asp-for="personalReg.DistrictId" class="form-input" required>
+                    <option value="">--Select District--</option>
+                </select>
+
+                <input asp-for="personalReg.ProfileImage" type="file" name="fileProfileImage" id="fileProfileImage" class="form-input" accept="image/*" />
+
+                <button type="submit" class="btn btn-dark">Sign Up</button>
+            </form>
+        </div>
+    </div>
+    <div class="form-container sign-in-container">
+        <form asp-action="LoginMethod" method="post">
+            <h1>Sign in</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your account</span>
+            <input asp-for="Emaill" type="email" placeholder="Email" />
+            <input asp-for="Passwordd" type="password" placeholder="Password" />
+            <a asp-controller="Login" asp-action="ForgotPassword">Forgot your password?</a>
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/css/loginjs/loginpagejs.js" asp-append-version="true"></script>
+    <script src="~/js/contry_s_s_ddl_js/contryddljs.js" asp-append-version="true"></script>
+
+}

@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["title"] = "Personal Details List";
+}
+
+<div class="right_col" role="main">
+    <div class="">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Student Details</h2>
+                    <table id="dataTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Role Name</th>
+                                <th>Full Name</th>
+                                <th>Gender</th>
+                                <th>DOB</th>
+                                <th>Email</th>
+                               <th>Phone Number</th>
+                                <th>Country</th>
+                                <th>State</th>
+                                <th>District</th>
+                                <th>ProfileImage</th>
+
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- end col -->
+
+
+@section Scripts{
+    <script src="~/js/adminjs/personaldetailslistjs.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,195 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@using gentela_Alela.Views.View_Model
+@model PersonalDetailsVM
+@{
+    ViewData["Title"] = "Manage Profile / Edit Profile (Admin)";
+    var usercountry = Context.Session.GetString(SD.KeyCountry);
+    var userstate = Context.Session.GetString(SD.KeyState);
+    var userdistrict = Context.Session.GetString(SD.KeyDistrict);
+    
+
+    string? userImage = Context.Session.GetString(SD.KeyprofileImag!) ?? "~/Photos/default-image.png/";
+}
+
+<div class="right_col" role="main">
+    <div class="">
+        <div class="card" >
+            <div class="card-header" style="
+                height: 50px;
+                display: flex;
+                align-items: center;
+                padding-left: 10px;
+                background-color: #e8f4ff;
+                border-bottom: 1px solid #ccc;">
+                <h4> <strong>Manage Profile / Edit Profile(Admin)</strong></h4>
+            </div>
+
+            <div class="card-body" style="background-color: white;">
+                <form method="post" id="editprofileUpdate">
+                    <fieldset style="border: 1px solid #ddd; padding: 15px;">
+
+                        <legend style="width:auto; padding:0 10px; font-weight:bold; color:#333;">
+                            PERSONAL DETAILS
+                        </legend>
+
+
+                        <!-- Full Name -->
+                        <div class="row mb-3">
+                            <input type="hidden" asp-for="personalReg.Id"/>
+                            <input type="hidden" asp-for="personalReg.RoleId" value="1"/>
+                            <input type="hidden" asp-for="personalReg.ProfileImage" value="@Url.Content(userImage)" />
+                            <input type="hidden" asp-for="personalReg.Password"/>
+                            <div class="col-md-2" style="margin-left:50px">
+                                <label class="form-label fw-bold">Full Name <span style="color:red">*</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="personalReg.FullName" type="text" class="form-control bg-white text-dark font-monospace fw-semibold fst-italic text-dark" readonly />
+                            </div>
+                        </div>  
+                        <br />
+
+                        <!-- Gender -->
+                        <div class="row mb-3">
+                            <div class="col-md-2" style="margin-left:50px">
+                                <label class="form-label fw-bold">Gender</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="personalReg.Gender" type="text" class="form-control bg-white text-dark" readonly />
+                            </div>
+                        </div>
+                        <br />
+
+                        <!-- Date of Birth -->
+                        <div class="row mb-3">
+                            <div class="col-md-2" style="margin-left:50px">
+                                <label class="form-label fw-bold">Date Of Birth</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="personalReg.Dob" type="text" class="form-control bg-white text-dark" readonly />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row mb-3">
+                            <div class="col-md-2" style="margin-left:50px" >
+                                <label class="form-label fw-bold">Country</label>
+                                </div>
+                                <div class="col-md-6">
+                                <input type="text" value="@usercountry" class="form-control bg-white text-dark" readonly />
+                            <input asp-for="personalReg.CountryId" type="hidden" />
+                        </div>
+                        </div>
+                        <br />
+                        <div class="row mb-3">
+                            <div class="col-md-2" style="margin-left:50px">
+                                <label class="form-label fw-bold">State</label>
+                                </div>
+                            <div class="col-md-6">
+                                <input type="text" value="@userstate" class="form-control bg-white text-dark" readonly />
+                            <input asp-for="personalReg.StateId" type="hidden" />
+                        </div>
+                        </div>
+                        <br />
+                        <div class="row mb-3">
+                            <div class="col-md-2" style="margin-left:50px">
+                                <label class="form-label fw-bold">District</label>
+                                </div>
+                            <div class="col-md-6">
+                            <input type="text" value="@userdistrict" class="form-control bg-white text-dark" readonly />
+                            <input asp-for="personalReg.DistrictId" type="hidden" />
+                        </div>
+                        </div>
+                        <br />
+
+                        <br />
+
+                        <!--Phone Number -->
+                        <div class="row mb-3">
+                            <div class="col-md-2" style="margin-left:50px">
+                                <label class="form-label fw-bold">Phone Number </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="personalReg.PhoneNo" type="text" class="form-control bg-white text-black " style="color:black!important" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <!--Email+Update button (aside)-->
+                        <div class="row mb-3">
+                            <div class="col-md-2" style="margin-left:50px">
+                                <label class="form-label fw-bold">Email Id <span style="color:red">*</span></label>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center" style="float:left;flex-direction:row">
+                                <input asp-for="personalReg.Email" type="email" id="email" class="form-control mb-3 bg-info " />
+                            </div>
+                            <div class="col-lg-2 col-12">
+                                <button type="button" id="updateEmailBtn" class="btn btn-success">Update</button>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Receive Alert -->
+                        <div class="row mb-3">
+                            <div class="col-md-2" style="margin-left:50px">
+                                <label class="form-label fw-bold">Receive Alert on Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input " />
+                                    <label class="form-check-label">
+                                        Whenever Status of my application changes
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <hr />
+                    <fieldset style="border: 1px solid #ddd; padding: 15px;">
+                        <div class="card mt-3">
+                            <div class="card-header" style="background-color:white!important"><h2><strong>LOGIN DETAIL</strong></h2></div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label"><strong>Login Id *</strong></label>
+                                    <div class="col-sm-4">
+                                        <input asp-for="personalReg.Email" type="text" class="form-control" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="form-group mt-3 text-center d-flex justify-content-end  ">
+                            <button type="submit" class="btn btn-success" form="editprofileUpdate">Submit</button>
+                            <button type="reset" class="btn btn-info">Reset</button>
+                            <button type="button" class="btn btn-danger">Close</button>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-label {
+        color: #333;
+    }
+
+    input[readonly] {
+        background-color: #f9f9f9;
+        color: #555;
+    }
+
+    .card {
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+</style>
+
+
+@section Scripts {
+    <script src="~/js/adminjs/otpsenderforupdateemailjs.js" asp-append-version="true"></script>
+}

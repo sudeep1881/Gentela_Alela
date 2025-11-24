@@ -1,0 +1,540 @@
+﻿
+/* 🔴 Scrolling red text */
+.marquee-text {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    padding: 8px 0;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.marquee-text span {
+    display: inline-block;
+    animation: scroll-left 15s linear infinite;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* 🩵 Blue Header Box */
+.hero {
+    background-color: #5b9bbf;
+    color: white;
+    width: 994px;
+    height: 308px;
+    margin: 20px auto;
+    padding: 40px 10px;
+    border-radius: 4px;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: "Noto Sans Kannada", "Arial", sans-serif;
+}
+
+    .hero h1 {
+        font-size: 40px;
+        margin: 10px 0;
+    }
+
+    .hero h2 {
+        font-size: 34px;
+        margin: 10px 0;
+    }
+
+    .hero h3 {
+        font-size: 32px;
+        margin: 10px 0;
+    }
+
+/* 💛 Yellow Box (*** box) */
+.info-box {
+    background-color: #fbd64a;
+    width: 970px;
+    margin: 0 auto 10px auto; /* Combined margins */
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ⚫ Gray message area */
+.note-box {
+    background-color: #e6e4f8;
+    width: 994px;
+    margin: 8px auto;
+    padding: 20px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.note-gray {
+    background-color: #555;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.note-content {
+    color: black;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+    .note-content b {
+        font-weight: 700;
+    }
+
+/* === Self Declaration Consent Styling (Refined) === */
+.declaration-consent-box {
+    background-color: #f0f0ff;
+    border-radius: 5px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-top: 15px;
+    margin-bottom: 45px;
+    width: 994px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Arial, 'Noto Sans Kannada', sans-serif;
+}
+
+.declaration-title-bar, .applicant-details-title-bar {
+    background-color: #fbd64a; /* Yellow/Gold */
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+
+    .declaration-title-bar b, .applicant-details-title-bar b {
+        font-size: 20px;
+        color: black !important;
+    }
+
+.declaration-text {
+    margin-top: 10px;
+    font-size: 17px;
+    line-height: 1.8;
+    color: black !important;
+}
+
+.legal-paragraph-flex {
+    display: flex;
+    align-items: flex-start; /* Align legal text and radio buttons */
+    justify-content: space-between;
+    width: 98%; /* Adjusted width for better fit */
+    flex-wrap: wrap;
+}
+
+.legal-text {
+    flex: 1;
+    color: #444;
+    margin: 0;
+    padding-right: 15px;
+}
+
+.consent-radio-buttons {
+    white-space: nowrap;
+    margin-left: 15px;
+    padding-top: 5px; /* Alignment adjustment */
+}
+
+
+/* === 🆕 Applicant Details Form Styling === */
+.applicant-details-box {
+    background-color: #f0f0ff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    width: 994px;
+    margin: 20px auto 45px auto;
+    font-family: Arial, 'Noto Sans Kannada', sans-serif;
+}
+
+.applicant-details-title-bar {
+    background-color: #fbd64a; /* Matching the original image's header color */
+    padding: 10px 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+    .applicant-details-title-bar b {
+        font-size: 18px;
+        color: black;
+    }
+
+.applicant-form-content {
+    display: grid;
+    /* Two columns: 1fr for label, 1.5fr for input */
+    grid-template-columns: 1fr 1.5fr;
+    gap: 15px 20px;
+    padding: 15px;
+}
+
+/* General Row Styling */
+.form-row {
+    display: contents; /* Allows children to be direct grid items */
+}
+
+    .form-row label {
+        display: block;
+        font-size: 0.95em;
+        color: #333;
+        align-self: start;
+        padding-top: 5px;
+    }
+
+    .form-row input:not([type="radio"]),
+    .form-row textarea,
+    .form-row select {
+        width: 100%;
+      
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 1em;
+    }
+
+    .form-row textarea {
+        resize: vertical;
+    }
+
+/* Radio/Input Controls Container */
+.input-controls {
+    align-self: center;
+    padding-top: 5px;
+}
+
+.radio-options {
+    display: flex;
+    gap: 20px;
+}
+
+    .radio-options label {
+        display: flex;
+        align-items: center;
+        font-weight: normal;
+        padding-top: 0;
+    }
+
+/* Aadhar Group Styling */
+.form-row-group {
+    grid-column: 1 / -1; /* Span across both columns */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 5px;
+}
+
+.aadhar-placeholder {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc; /* Grey box */
+    border: 1px solid #aaa;
+}
+
+.btn-aadhar {
+    background-color: #eee;
+    color: #333;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+/* Photo Upload Styling */
+.file-upload-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #fff;
+}
+
+.file-choose-label {
+    font-size: 1em;
+    color: #666;
+    cursor: pointer;
+}
+
+.camera-icon {
+    font-size: 1.2em;
+    color: #888;
+}
+
+/* 📱 Responsive adjustment */
+@media (max-width: 1024px) {
+    .hero, .info-box, .note-box, .declaration-consent-box, .applicant-details-box {
+        width: 95%;
+        height: auto;
+    }
+
+        .hero h1, .hero h2, .hero h3 {
+            font-size: 28px;
+        }
+
+    .legal-paragraph-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .applicant-form-content {
+        grid-template-columns: 1fr; /* Stack labels and inputs on small screens */
+    }
+
+    .form-row label, .form-row input, .form-row select, .form-row textarea {
+        grid-column: 1 / -1; /* Take full width on small screens */
+    }
+}
+
+
+/* === 🆕 Footer Button Styling === */
+.form-footer-box {
+    width: 994px;
+    margin: 20px auto; /* Centered, below the form */
+    padding: 10px 0;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #00acd6; /* Light blue top border for the entire box */
+    display: flex;
+    justify-content: flex-end; /* Push buttons to the right */
+    align-items: center;
+    padding-right: 20px;
+}
+
+.footer-button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    transition: background-color 0.2s;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+    .btn-action:hover {
+        opacity: 0.9;
+    }
+
+/* Specific Colors */
+.btn-draft {
+    background-color: #00bcd4; /* Cyan/Draft Blue */
+}
+
+.btn-submit {
+    background-color: #5cb85c; /* Submit Green */
+}
+
+.btn-close {
+    background-color: #d9534f; /* Close Red/Orange */
+}
+
+.btn-reset {
+    background-color: #5bc0de; /* Reset Blue/Teal */
+}
+
+    /* If Font Awesome is not available, these icon classes won't show.
+       For the icons to show, you need to link a Font Awesome library. */
+    .btn-close i, .btn-reset i {
+        margin-right: 5px;
+    }
+
+/* 📱 Responsive adjustment for footer */
+@media (max-width: 1024px) {
+    .form-footer-box {
+        width: 95%;
+        justify-content: center; /* Center buttons on small screens */
+        padding: 15px 10px;
+    }
+
+    .footer-button-group {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .btn-action {
+        width: 100px; /* Make buttons a consistent size on mobile */
+        padding: 8px 10px;
+    }
+}
+
+
+
+.education-details-box {
+    background-color: #f4f1ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+}
+
+.education-title-bar {
+    background-color: #fbd64a;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.education-form-content .form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.education-form-content label {
+    flex: 0 0 45%;
+    font-weight: bold;
+}
+
+.education-form-content .input-controls {
+    flex: 1;
+}
+
+.education-form-content select,
+.education-form-content input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+
+
+
+
+
+/* Section Boxes */
+.domicile-details-box,
+.communication-details-box,
+.additional-details-box {
+    background-color: #f0f0ff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    width: 994px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, 'Noto Sans Kannada', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+
+
+/* Section Titles */
+.domicile-title-bar,
+.communication-title-bar,
+.additional-title-bar {
+    background-color: #fce883;
+    padding: 10px 15px;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 15px;
+}
+
+/* Form Rows */
+.domicile-form-content .form-row,
+.communication-form-content .form-row,
+.additional-form-content .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+.domicile-form-content label,
+.communication-form-content label,
+.additional-form-content label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Inputs and Dropdowns */
+.domicile-form-content input,
+.communication-form-content input,
+.additional-form-content input,
+.domicile-form-content select,
+.additional-form-content select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Radio Buttons Row */
+.radio-options {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: center;
+}
+
+
+
+.hidden-section {
+    display: none !important;
+}
+
+
+.right_col {
+    min-height: auto !important;
+    height: auto !important;
+    overflow: hidden !important;
+
+}
+
+/* Ensure the last section doesn't add space */
+.form-footer-box {
+    margin-bottom: 30px !important;
+    padding-bottom: 20px !important;
+}
+
+/* Prevent body/html extra scroll gap */
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #fff; /* optional */
+}
+
+/* Make sure hidden sections don’t reserve space */
+.hidden-section {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Optional: Remove bottom gap caused by containers */
+.container,
+.main_container {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+

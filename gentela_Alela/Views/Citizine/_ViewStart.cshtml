@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    var path = $"{Context.Request.Path}";
+
+    bool IsAdmin = path.Contains("/Citizine");
+
+
+
+
+    if (IsAdmin)
+    {
+        Layout = "_CitizineLayout";
+    }
+    else
+    {
+        Layout = "_CitizineLayout";
+    }
+
+}

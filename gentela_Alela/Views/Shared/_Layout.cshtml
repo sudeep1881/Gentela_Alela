@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+
+    int? userid = Context.Session.GetInt32(SD.KeyUser);
+    int? roleid = Context.Session.GetInt32(SD.KeyRole);
+
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ✅ Keep ONLY Bootstrap 3.x from Gentelella -->
+   
+    <link href="~/css/logincss/loginpage.css" rel="stylesheet" asp-append-version="true" />
+
+
+    <!-- Optional icons / toastr -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+<body>
+
+           
+
+
+            @RenderBody()
+
+    <footer>
+        <p>
+            Created with <i class="fa fa-heart"></i> by
+            <a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+            - Read how I created this and how you can join the challenge
+            <a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+        </p>
+    </footer>
+
+
+
+    <!-- jQuery -->
+    <script src="~/gentela-pages/Page1/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap (Bootstrap 3 from Gentelella) -->
+    <script src="~/gentela-pages/Page1/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- External plugins (after Gentelella scripts) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+    <partial name="__NotificationsLayout"></partial>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

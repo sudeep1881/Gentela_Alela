@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Admin Page ";
+}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Registration Users</h2>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" id="downloadExcelFormatHomePage" class="btn btn-success" >Download Excel</button>
+                </div>
+                <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th> Name</th>
+                            <th>Dob</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Profile Image</th>
+
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+</div>
+
+@section Scripts{
+    <script src="~/js/adminjs/homepagefetchmethod.js" asp-append-version="true"></script>
+    <script src="~/exceldownloader/excelhelper.js" asp-append-version="true"></script>
+    <script src="~/js/adminjs/downloadexceladminhomepage.js" asp-append-version="true"></script>
+}
+
+
+
