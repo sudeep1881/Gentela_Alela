@@ -6,16 +6,20 @@ using gentela_Alela.Views.View_Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using System.Text.Json;
 
 namespace gentela_Alela.Controllers
 {
-    public class AdminController(GentleProjectContext db, IWebHostEnvironment web, IEmailSender email) : Controller
+    public class AdminController(GentleProjectContext db, IWebHostEnvironment web, IEmailSender email,IConfiguration config) : Controller
     {
         private readonly GentleProjectContext _db = db;
 
         private readonly IWebHostEnvironment _web = web;
 
         private readonly IEmailSender _email = email;
+
+        private readonly IConfiguration _config=config;
 
         #region----Role (DDL) Method-------
         public async Task<IEnumerable<SelectListItem>> GetRole()
@@ -704,6 +708,197 @@ namespace gentela_Alela.Controllers
         }
         #endregion
         #endregion
+
+        #region-----Upload Voice in ElevenLabs-----
+        [HttpPost]
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> UploadVoice([FromForm] IFormFile audioFile, [FromForm] string voiceName)
+        {
+             
+            try
+            {
+                if (audioFile == null || audioFile.Length == 0)
+                    return BadRequest("Audio file is missing");
+
+                if (string.IsNullOrWhiteSpace(voiceName))
+                    return BadRequest("Voice name is required");
+                using (var httpClient = new HttpClient())
+                {
+                    var apiKey = _config["ElevenLabs:ApiKey"];
+                    httpClient.DefaultRequestHeaders.Add("xi-api-key", apiKey);
+                    using (var form = new MultipartFormDataContent())
+                    {
+                        form.Add(new StringContent(voiceName), "name");
+
+                        var streamContent = new StreamContent(audioFile.OpenReadStream()); // FIX: remove codec information
+
+                        var cleanType = audioFile.ContentType.Split(';')[0];
+
+                        streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(cleanType);
+
+                        form.Add(streamContent, "files", audioFile.FileName);
+
+                        var url = "https://api.elevenlabs.io/v1/voices/add";
+
+                        var response = await httpClient.PostAsync(url, form);
+
+                        var result = await response.Content.ReadAsStringAsync();
+
+                        if (!response.IsSuccessStatusCode)
+                            return BadRequest("Upload failed → " + result);
+
+                        return Ok(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        #endregion
+
+        #region  ---Record Voice---
+        public IActionResult RecordVoice()
+        {
+            return View();
+        }
+        #endregion
+
+        #region ----- Get All Voices From ElevenLabs for yuvanidhi -----
+        [HttpGet]
+        public async Task<IActionResult> GetVoices()
+        {
+            var apiKey = _config["ElevenLabs:ApiKey"];
+
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("xi-api-key", apiKey);
+
+            var response = await client.GetAsync("https://api.elevenlabs.io/v1/voices");
+
+            if (!response.IsSuccessStatusCode)
+                return BadRequest("Failed to fetch voices");
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            return Content(result, "application/json");
+
+
+        }
+        #endregion
+
+        #region------Pernment Address Text to Speech------
+
+        [HttpPost]
+        public async Task<IActionResult> PernmentAddress(string text, string voiceId)
+        {
+
+            if (string.IsNullOrWhiteSpace(text))
+                return BadRequest("Text is empty");
+
+            var apiKey = _config["ElevenLabs:ApiKey"];
+            var url = $"https://api.elevenlabs.io/v1/text-to-speech/{voiceId}";
+
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("xi-api-key", apiKey);
+
+            var payload = new
+            {
+                text = text,
+                model_id = "eleven_multilingual_v2",
+                voice_settings = new
+                {
+                    stability = 0.75,
+                    similarity_boost = 0.75
+                }
+            };
+
+            var json = System.Text.Json.JsonSerializer.Serialize(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(url, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                return StatusCode(500, "TTS failed: " + err);
+            }
+
+            var audioBytes = await response.Content.ReadAsByteArrayAsync();
+
+            // <-- only change: specify file name to trigger download
+            return File(audioBytes, "audio/mpeg", "PernmentAddressVoice.mp3");
+        }
+
+        #endregion
+
+
+
+        #region ----- Get All Voices From ElevenLabs -----
+        public async Task<IActionResult> VoiceList()
+        {
+            var apiKey = _config["ElevenLabs:ApiKey"];
+
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("xi-api-key", apiKey);
+
+            var response = await client.GetAsync("https://api.elevenlabs.io/v1/voices");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ViewBag.Error = "Failed to fetch voices";
+                return View(new VoiceListViewModel());
+            }
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            // Deserialize the JSON into a dynamic object
+            var jsonDoc = JsonDocument.Parse(result);
+            var voicesJson = jsonDoc.RootElement.GetProperty("voices");
+
+            var voices = new List<Voice>();
+
+            foreach (var v in voicesJson.EnumerateArray())
+            {
+                voices.Add(new Voice
+                {
+                    Name = v.GetProperty("name").GetString(),
+                    VoiceId = v.GetProperty("voice_id").GetString(),
+                    Category = v.TryGetProperty("category", out var cat) ? cat.GetString() : "default"
+                });
+            }
+
+            var viewModel = new VoiceListViewModel
+            {
+                Voices = voices
+            };
+
+            return View(viewModel);
+        }
+        #endregion
+
+
+        #region ----- Delete Voice -----
+        [HttpPost]
+        public async Task<IActionResult> DeleteVoice(string voiceId)
+        {
+            var apiKey = _config["ElevenLabs:ApiKey"];
+
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("xi-api-key", apiKey);
+
+            var response = await client.DeleteAsync($"https://api.elevenlabs.io/v1/voices/{voiceId}");
+
+            if(!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                return BadRequest(err);
+            }
+
+            return Ok();
+        }
+        #endregion
+
 
     }
 }

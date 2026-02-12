@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["title"] = "Record your voice Page";
+}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="card">
+            <div class="card-header" style="height:50px; display:flex; align-items:center; padding-left:10px; background-color:white; border-bottom:1px solid #ccc;">
+                <h4 style="color:black; margin:0;"> <span style="font-weight:normal;">Record Your Own Voice</span> </h4>
+            </div>
+            <div class="card-body">
+                <label>Enter your Voice Name</label>
+                <input id="voiceName" class="form-control" style="width:300px" placeholder="Name of the voice" />
+
+                <br />
+
+                <label>Sentence to read aloud</label>
+                <!--FIXED TEXT - USER CANNOT EDIT-->
+                <textarea  id="recordText"  class="form-control" style="width:700px" rows="4" readonly> Hi, I’m just talking casually for this voice recording. Sometimes life is busy, sometimes it is calm, and we just go with the flow. We wake up, check our phone, think about breakfast, and plan the day. Some days are exciting, and some days are a little boring, but that’s completely okay. That’s how real life is. I like simple things: having tea or coffee, listening to music, going for a walk, or just sitting quietly. I enjoy talking, laughing, and spending time with people I care about. Even small moments can feel good, like cool weather, a funny message,or a good meal at the right time.While I’m talking now, I’m not trying to be perfect. I’m just being natural. Sometimes we pause, sometimes we think, sometimes we smile while talking. Real speech is not like reading a textbook; it has feelings, small changes in tone. Let me ask a few casual questions, just like in conversation: How’s your day going? Did you sleep well? Have you eaten? What plans do you have later? These are the kinds of things we normally say without even thinking about it.Sometimes we talk about memories, future plans, or random thoughts. We might say, “I don’t know what to watch today,” or “Let’s go somewhere,” or “Let’s just relax and do nothing.” It’s perfectly fine to be simple and casual. This recording is just me, talking in my normal voice, in a calm and friendly way. No rush, no stress. Just natural speech, like everyday life. I think this should be enough to understand how I sound when I speak casually. </textarea>
+                <br />
+                <!-- Record controls -->
+                <butto n id="recordBtn" onclick="showPopup(); startRecording()" class="btn" style="background-color:#ADD8E6"> 🎙 Record Voice </butto>
+                <button id="stopBtn" onclick="stopRecording()" class="btn btn-warning" disabled> ⏹ Stop </button>
+                <p id="recordStatus" style="color:red; font-weight:bold;"></p>
+                <!-- Submit recorded voice -->
+                <button id="submitRecordedBtn" onclick="submitRecordedVoice()" class="btn btn-success"> ✔ Submit Recorded Voice </button>
+                <button id="ResetVoice" class="btn btn-danger" onclick="ResetRecord()"> Reset </button>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- POPUP WINDOW -->
+<div id="textPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; padding:40px;">
+    <div style="background:white; border-radius:12px; padding:25px; max-width:700px; margin:auto; height:60%; overflow-y:auto;">
+        <h3 style="color:black"><b>Please read this text aloud</b></h3>
+        <!-- text will appear here --> <p id="popupContent" style="font-size:18px; line-height:1.6;"></p>
+        <br>
+        <button onclick="closePopup()" class="btn btn-danger">Close</button>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/voice clone/voicecloneelevenlabs.js" asp-append-version="true"></script>
+}

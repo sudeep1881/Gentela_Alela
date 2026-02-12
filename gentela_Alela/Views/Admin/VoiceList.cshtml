@@ -1,0 +1,49 @@
+﻿@model gentela_Alela.Views.View_Model.VoiceListViewModel
+
+<div class="right_col" role="main">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Total Voices: @Model.TotalVoices</h2>
+                <table border="1" cellpadding="10">
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Voice ID</th>
+                        <th>Category</th>
+                        <th >Action</th>
+                    </tr>
+                    @for (int i = 0; i < Model.Voices.Count; i++)
+                    {
+                        @if (@Model.Voices[i].Category == "cloned" || @Model.Voices[i].Category == "professional")
+                        {
+                        <tr>
+
+                            <td>@(i + 1)</td>
+                            <td>@Model.Voices[i].Name</td>
+                            <td>@Model.Voices[i].VoiceId</td>
+                            <td style="margin-right:5px">@Model.Voices[i].Category</td>
+                            
+                            <td>
+                               
+                                    <button style="margin-bottom:0px;margin-left:5px;margin-top:2px"  onclick="deleteVoice('@Model.Voices[i].VoiceId')"
+                                            class="btn btn-danger btn-sm">
+                                        🗑Delete
+                                    </button>
+                             
+                               
+                            </td>
+
+                            
+                        </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script src="~/js/voice clone/voicecloneelevenlabs.js" asp-append-version="true"></script>
+       }

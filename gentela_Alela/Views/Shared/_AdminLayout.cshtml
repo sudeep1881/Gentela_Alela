@@ -81,7 +81,6 @@
                                     <a asp-controller="Admin" asp-action="Index" style="color:#FFFFFF"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
-
                                     </ul>
                                 </li>
 
@@ -101,7 +100,6 @@
                                         <li><a asp-controller="Admin" asp-action="Role">   Role Registration </a></li>
 
                                         <li><a asp-controller="Admin" asp-action="PersonalDetails"> Personal Details Registration </a></li>
-
 
                                     </ul>
                                 </li>
@@ -123,17 +121,21 @@
                                     </ul>
                                 </li>
 
+
                                 <li>
-                                    <a style="color:#FFFFFF"><i class="fa fa-edit"></i> Registration <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-windows"></i> Voice Clone <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a asp-controller="Citizine" asp-action="Registration">General Form</a></li>
+                                        <li><a asp-controller="Admin" asp-action="RecordVoice">Voice Record</a></li> 
+                                        <li><a asp-controller="Admin" asp-action="VoiceList">Voice List</a></li>
 
                                     </ul>
                                 </li>
+
+
+                                
                             </ul>
 
-                        </div>
-
+                        </div> 
 
                     </div>
                     <!-- /sidebar menu -->
@@ -251,7 +253,7 @@
                             <li class="nav-item dropdown tasks-menu px-lg-2">
                                 <div align="center" style="background-color: white;border:3px solid red; margin-bottom:7px ;margin-top:0px;margin-right:40px" class="px-lg-2">
                                     <p for="sessionTimer" style="color: red; font-size: 18px;">
-                                        <label id="sessionTimerValue" style="color: black;margin-left:6px">30</label>
+                                        <label id="sessionTimerValue" style="color: black;margin-left:6px">15</label>
                                         <lable style="color: black;">&nbsp;&nbsp;:&nbsp;</lable>
                                         <label id="secondsTimer" style="color: red;">00</label>
                                         <lable style="color: black;">&nbsp;&nbsp;</lable>

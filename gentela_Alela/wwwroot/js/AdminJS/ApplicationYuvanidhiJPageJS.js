@@ -173,5 +173,138 @@ function showAllSections() {
 }
 
 
+//voice cloning
+
+async function SpeakPernmentAddress()
+{
+    var text = document.getElementById("PernmentAddressText").value;
+    var voiceId = document.getElementById("VoiceSelect").value;
+    if (!text)
+    {
+        alert("Please enter Permanent Address Details");
+        return;
+    }
+    const response = await fetch('/Admin/PernmentAddress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'text=' + encodeURIComponent(text) + '&voiceId=' + encodeURIComponent(voiceId)
+    });
+    if (!response.ok)
+    {
+        alert("TTS failed");
+        return;
+    }
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    audio.play();
+}
+
+
+//Submit Button
+
+async function submitRecordedVoice() {
+
+    if (audioChunks.length === 0) {
+        alert("No audio recorded");
+        return;
+    }
+
+    const voiceName = document.getElementById("voiceName").value;
+
+    if (!voiceName) {
+        alert("Please enter voice name");
+        return;
+    }
+
+    document.getElementById("recordStatus").innerText = "Uploading...";
+
+    const blob = new Blob(audioChunks, { type: "audio/webm" });
+
+    const formData = new FormData();
+    formData.append("audioFile", blob, "voice.webm");
+    formData.append("voiceName", voiceName);
+
+    const res = await fetch("/Admin/UploadVoice", {
+        method: "POST",
+        body: formData
+    });
+
+    const text = await res.text();
+
+    if (!res.ok) {
+        alert("Upload failed:\n\n" + text);
+        document.getElementById("recordStatus").innerText = "";
+        return;
+    }
+
+    alert("🎉 Voice uploaded successfully to ElevenLabs");
+
+    document.getElementById("recordStatus").innerText = "Upload complete";
+
+    await loadVoices();   // ⭐ THIS LINE IS THE IMPORTANT ONE
+}
+
+
+
+//load voices
+
+async function loadVoices() {
+
+    const res = await fetch('/Admin/GetVoices');
+    const data = await res.json();
+
+    const dropdown = document.getElementById("VoiceSelect");
+
+    dropdown.innerHTML = "";
+
+    data.voices.forEach(v => {
+
+        if (v.category == "cloned" || v.category == "professional") {
+
+
+            const option = document.createElement("option");
+
+            option.value = v.voice_id;     // REAL voice id from ElevenLabs
+            option.text = v.name;         // Voice name
+
+            dropdown.appendChild(option);
+        }
+        });
+
+}
+
+// auto load on page open
+window.onload = loadVoices;
+
+
+
+///Download Voice
+
+
+//Download Voice
+function DownloadVoice()
+{
+    var text = document.getElementById("PernmentAddressText").value;
+    var voiceId = document.getElementById("VoiceSelect").value;
+    if (!text)
+    {
+        alert("Please enter Permanent Address Details");
+        return;
+    }
+    // Backend returns file → browser downloads
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/Admin/PernmentAddress";
+    const t = document.createElement("input");
+    t.type = "hidden"; t.name = "text";
+    t.value = text; const v = document.createElement("input");
+    v.type = "hidden"; v.name = "voiceId";
+    v.value = voiceId; form.appendChild(t);
+    form.appendChild(v);
+    document.body.appendChild(form);
+    form.submit();
+}
+
 
 

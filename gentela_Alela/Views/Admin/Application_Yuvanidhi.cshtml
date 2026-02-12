@@ -93,8 +93,6 @@
                         <span class="text-danger" asp-validation-for="applicantReg.AdharName"></span>
                     </div>
                     </div>
-                   
-
 
                     <div class="form-row">
                         <label>Date of Birth / ಜನ್ಮ ದಿನಾಂಕ *</label>
@@ -118,16 +116,38 @@
                             <input type="file" name="fileProfileImage" id="fileProfileImage" class="form-control form-control-sm" accept="image/*">
 
                             <span asp-validation-for="applicantReg.Photo" id="fileError" class="text-danger"></span>
+
+                                  
                         </div>
+
                     </div>
 
                     <div class="form-row">
-                        <label>Permanent Address / ಕಾಯಂ ವಿಳಾಸ *</label>
-                        <div class="input-controls">
-                        <textarea rows="2" asp-for="applicantReg.PernmentAdress" class="form-control"></textarea>
-                        <span asp-validation-for="applicantReg.PernmentAdress" class="text-danger"></span>
+                        <label>Select Voice / ಕಲಾವಿದ</label>
+                        <div class="input-controls short-field">
+                            <select id="VoiceSelect" class="form-control"></select>
+                        </div>
                     </div>
+                    <div class="form-row">
+                        <label>Permanent Address / ಕಾಯಂ ವಿಳಾಸ <span class="text-danger">*</span></label>
+                        <div class="textarea-wrapper">
+                            <!-- Small textarea -->
+                            <textarea  asp-for="applicantReg.PernmentAdress"
+                                      id="PernmentAddressText"
+                                      rows="2"
+                                      class="form-control short-field"></textarea>
+
+                            <!-- Icons beside textarea -->
+                            <div class="icon-column">
+                                <button type="button" onclick="SpeakPernmentAddress()" class="icon-btn">🔊</button>
+                                <button type="button" onclick="DownloadVoice()" class="icon-btn">📥</button>
+                            </div>
+                        </div>
+                        <span class="text-danger"></span>
                     </div>
+
+                    <br />
+
 
                     <div class="form-row">
                         <label>Is current address same as above / ಪ್ರಸ್ತುತ ವಿಳಾಸವು ಮೇಲಿನಂತೆಯೇ ಇದೆಯೇ? *</label>
@@ -143,7 +163,7 @@
                         <input asp-for="applicantReg.Address1" type="text" class="form-control" />
                     </div>
                     </div>
-
+                        
                     <div class="form-row">
                         <label>Adress 2/ವಿಳಾಸ 2  </label>
                         <div class="input-controls">
@@ -405,6 +425,35 @@
 @section Scripts {
     <script src="~/js/adminjs/applicationyuvanidhijpagejs.js" asp-append-version="true"></script>
 }
+<style>
+    .textarea-wrapper {
+        display: flex; /* Align textarea + icons in one row */
+        align-items: center; /* Vertically center icons with textarea */
+    }
+
+        .textarea-wrapper textarea {
+            flex: 1; /* textarea takes remaining space */
+            font-size: 14px; /* smaller text size */
+            padding: 6px; /* small padding */
+            resize: none; /* optional: prevent resizing */
+            margin-right: 6px; /* space between textarea and icons */
+        }
+
+    .icon-column {
+        display: flex; /* arrange buttons horizontally */
+        flex-direction: row;
+        gap: 4px; /* space between icons */
+    }
+
+    .icon-btn {
+        font-size: 18px; /* emoji/icon size */
+        padding: 4px 8px; /* small button size */
+        cursor: pointer;
+        background: none; /* remove default button background */
+        border: none; /* remove border */
+    }
+
+</style>
 
 
 

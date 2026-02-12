@@ -1,6 +1,6 @@
 ﻿
     // Start from 30 minutes
-    let totalTime = 30 * 60;  // 1800 seconds
+    let totalTime = 15 * 60;  // 1800 seconds
 
     function startSessionTimer() {
         const minLabel = document.getElementById("sessionTimerValue");
