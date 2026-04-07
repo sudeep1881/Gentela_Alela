@@ -1,4 +1,4 @@
-﻿using gentela_Alela.Models;
+﻿    using gentela_Alela.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 

@@ -15,6 +15,7 @@ namespace gentela_Alela.Controllers
 {
     public class LoginController(GentleProjectContext db, IEmailSender email, IWebHostEnvironment web) : Controller
     {
+      
         private readonly GentleProjectContext _db = db;
 
         private readonly IWebHostEnvironment _web = web;
@@ -126,6 +127,7 @@ namespace gentela_Alela.Controllers
         [HttpPost]
         public async Task<IActionResult> LoginMethod(RegistrationVM logimvm)
         {
+        
             var user = await _db.PersonalDetails.Where(s => s.Isdeleted == false && s.Email!.Trim().ToLower() == logimvm.Emaill!.Trim().ToLower()
             && s.Password!.Trim().ToLower() == logimvm.Passwordd).Include(s => s.District).Include(s => s.Country).Include(s => s.State).Select(s => new LoginPersonalDetailsDTOs
             {
@@ -143,10 +145,11 @@ namespace gentela_Alela.Controllers
                 ProfileImage = s.ProfileImage
             }).FirstOrDefaultAsync();
 
+
             if (user != null)
             {
-                HttpContext.Session.SetInt32(SD.KeyUser, user.Id);
-                HttpContext.Session.SetInt32(SD.KeyRole, (int)user.RoleId!);
+                HttpContext.Session.SetInt32 (SD.KeyUser, user.Id);
+                HttpContext.Session.SetInt32 (SD.KeyRole, (int)user.RoleId!);
                 HttpContext.Session.SetString(SD.KeyName, user.FullName!);
                 HttpContext.Session.SetString(SD.KeyGender, user.Gender!);
                 HttpContext.Session.SetString(SD.KeyDob, user.Dob.ToString()!);
@@ -318,10 +321,12 @@ namespace gentela_Alela.Controllers
 
             var user = _db.PersonalDetails.FirstOrDefault(u => u.Email == model.Email && u.Isdeleted == false);
 
-            if (user == null)
+            if(user == null)
             {
+
                 TempData["error"] = "User not found!";
                 return View(model);
+
             }
 
             // Update password in DB

@@ -16,9 +16,7 @@ function DeleteHandlerPersonalDetails(url) {
             DeleteHandlerPersonDetailsHover(`${url}${id}`);
         }
     });
-}
-
-         
+}      
 
 function DeleteHandlerPersonDetailsHover(url) {
 
