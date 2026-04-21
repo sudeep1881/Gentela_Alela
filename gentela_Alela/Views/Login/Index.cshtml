@@ -10,32 +10,38 @@
                 <h1>Create Account</h1>
 
                 <input asp-for="personalReg.Id" type="hidden" />
-
-                <select asp-for="personalReg.RoleId" asp-items="@Model.RoleList" class="form-input" required>
-                    <option disabled selected>----Select Role----</option>
-                </select>
-
+                <input type="hidden" asp-for="personalReg.Id" />
+                
                 <input asp-for="personalReg.FullName" type="text" placeholder="Name" class="form-input" />
                 <input asp-for="personalReg.Dob" type="date" placeholder="DOB" class="form-input" />
-                <input asp-for="personalReg.Gender" type="text" placeholder="Gender" class="form-input" />
+                <select   asp-for="personalReg.Gender" class="form-input" required>
+                    <option disabled selected>--Select Gender--</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+                <input asp-for="personalReg.PhoneNo" type="text" placeholder="Phone No" class="form-input" />
+
                 <input asp-for="personalReg.Email" type="email" placeholder="Email" class="form-input" autocomplete="new-email" />
+
                 <input asp-for="personalReg.Password" type="password" placeholder="Password" class="form-input" autocomplete="new-password" />
 
-                <select id="countryDropdown" asp-for="personalReg.CountryId" class="form-input" required>
+                <select id="CountryId" asp-items="@Model.CountryList" asp-for="personalReg.CountryId" class="form-input" required>
                     <option value="">--Select Country--</option>
                 </select>
 
-                <select id="stateDropdown" asp-for="personalReg.StateId" class="form-input" required>
+                <select id="StateId" asp-items="@Model.StateList" asp-for="personalReg.StateId" class="form-input" required>
                     <option value="">--Select State--</option>
                 </select>
 
-                <select id="districtDropdown" asp-for="personalReg.DistrictId" class="form-input" required>
+                <select id="DistrictId" asp-items="@Model.DistrictList" asp-for="personalReg.DistrictId" class="form-input" required>
                     <option value="">--Select District--</option>
                 </select>
 
                 <input asp-for="personalReg.ProfileImage" type="file" name="fileProfileImage" id="fileProfileImage" class="form-input" accept="image/*" />
 
                 <button type="submit" class="btn btn-dark">Sign Up</button>
+
             </form>
         </div>
     </div>
@@ -47,10 +53,12 @@
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
-            <span>or use your account</span>
+            <span>or use your account </span>
+
             <input asp-for="Emaill" type="email" placeholder="Email" />
             <input asp-for="Passwordd" type="password" placeholder="Password" />
             <a asp-controller="Login" asp-action="ForgotPassword">Forgot your password?</a>
+
             <button type="submit">Sign In</button>
         </form>
     </div>

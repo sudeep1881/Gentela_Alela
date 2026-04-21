@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace gentela_Alela.Models;
 
 public partial class EducationDetail
 {
     public int Id { get; set; }
-
+    [Required(ErrorMessage ="Please Enter  CourseType")]
     public string? CourseType { get; set; }
-
+    [Required(ErrorMessage ="Please Enter Level")]
     public string? Level { get; set; }
 
+    [Required(ErrorMessage ="Please Enter your yearof passout")]
     public int? YearOfPassout { get; set; }
 
+    [Required(ErrorMessage ="Please Enter your university ")]
     public string? UniversityName { get; set; }
 
     public string? RegistrationNumber { get; set; }

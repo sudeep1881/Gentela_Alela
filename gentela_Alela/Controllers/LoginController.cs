@@ -8,9 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-
-
-
 namespace gentela_Alela.Controllers
 {
     public class LoginController(GentleProjectContext db, IEmailSender email, IWebHostEnvironment web) : Controller
@@ -22,15 +19,80 @@ namespace gentela_Alela.Controllers
 
         private readonly IEmailSender _email = email;
 
-        #region--Role(DDL) Method------
+        #region----Role (DDL) Method-------
         public async Task<IEnumerable<SelectListItem>> GetRole()
         {
-            var RoleName = _db.Roles.Where(s => s.Isdeleted == false && s.Id == 2).Select(s => new SelectListItem
+            var roleList = _db.Roles.Where(s => s.Isdeleted == false).Select(s => new SelectListItem
             {
                 Text = s.RoleName,
                 Value = s.Id.ToString()
             }).ToList();
-            return RoleName;
+
+            return roleList;
+        }
+        #endregion
+
+        #region---Country (DDL) Method-------
+        public async Task<IEnumerable<SelectListItem>> GetCountry()
+        {
+            var CountryList = _db.Countries.Select(s => new SelectListItem
+            {
+                Text = s.CountryName,
+                Value = s.Id.ToString()
+            }).ToList();
+            return CountryList;
+        }
+        #endregion
+
+        #region----State (DDl)Method----
+        public JsonResult GetState(int CountryId)
+        {
+            var states = _db.States
+      .Where(s => s.CountryId == CountryId)
+      .Select(s => new { s.Id, s.StateName })
+      .ToList();
+
+            return Json(states);
+        }
+        #endregion
+
+
+
+        #region---District (DDl)Method-----
+        public JsonResult GetDistrict(int stateId)
+        {
+            var districts = _db.Districts
+                .Where(d => d.StateId == stateId)
+                .Select(d => new { d.Id, d.DistrictName })
+                .ToList();
+
+            return Json(districts);
+        }
+        #endregion
+
+        #region----Karnataka District(DDl)
+        public async Task<IEnumerable<SelectListItem>> GetKarnatakaDsitrict()
+        {
+            var disticts = _db.Districts.Where(s => s.StateId == 1).Select(s => new SelectListItem
+            {
+                Text = s.DistrictName,
+                Value = s.Id.ToString()
+            }).ToList();
+
+            return disticts;
+        }
+        #endregion
+
+        #region------KA D Taluk (DDL)---
+        [HttpGet]
+        public JsonResult KADTaluk(int districtId)
+        {
+            var taluk = _db.Taluks
+                .Where(s => s.DistictId == districtId)
+                .Select(s => new { s.Id, s.TalukName })
+                .ToList();
+
+            return Json(taluk);
         }
         #endregion
 
@@ -41,7 +103,8 @@ namespace gentela_Alela.Controllers
         {
             var loginvm = new PersonalDetailsVM
             {
-                RoleList = await GetRole()
+                RoleList = await GetRole(),
+                 CountryList = await GetCountry()
             };
             if (id.HasValue && id != null)
             {
@@ -63,6 +126,7 @@ namespace gentela_Alela.Controllers
         public async Task<IActionResult> Index(PersonalDetailsVM loginvm, IFormFile fileProfileImage)
         {
             loginvm.personalReg.Isdeleted = false;
+            loginvm.personalReg.RoleId = 2;
             await SaveImageAsyncMethodLogin(loginvm, fileProfileImage);
             await DeleteImageAsyncMethodLogin(loginvm, fileProfileImage);
 
@@ -90,6 +154,7 @@ namespace gentela_Alela.Controllers
 
         private async Task DeleteImageAsyncMethodLogin(PersonalDetailsVM loginvm, IFormFile fileProfileImage)
         {
+
             var objfromdb = await _db.PersonalDetails.FirstOrDefaultAsync(s => s.Isdeleted == false && s.Id == loginvm.personalReg.Id);
             if (fileProfileImage == null)
             {
@@ -160,8 +225,6 @@ namespace gentela_Alela.Controllers
                 HttpContext.Session.SetString(SD.KeyPhoneNumber!, user.PhoneNo!.ToString()!);
                 HttpContext.Session.SetString(SD.KeyprofileImag!, user.ProfileImage ?? "~/Photos/default-image.png/");
 
-
-
                 if (user.RoleId == 1)
                 {
                     return RedirectToAction(nameof(AdminController.Index), "Admin");
@@ -177,7 +240,6 @@ namespace gentela_Alela.Controllers
                 }
 
             }
-
             else
             {
                 TempData["error"] = "Invalid Email or Password";
@@ -312,6 +374,7 @@ namespace gentela_Alela.Controllers
         }
         #endregion
 
+
         #region--Post Method----
         [HttpPost]
         public IActionResult ResetPassword(ResetPasswordVM model)
@@ -330,7 +393,7 @@ namespace gentela_Alela.Controllers
             }
 
             // Update password in DB
-            user.Password = model.NewPassword;  // ⚠️ better to hash password in real projects
+            user.Password = model.NewPassword;  
             _db.PersonalDetails.Update(user);
             _db.SaveChanges();
 

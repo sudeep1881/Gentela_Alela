@@ -41,7 +41,8 @@ public partial class GentleProjectContext : DbContext
 
     public virtual DbSet<YuvanidhiApplicantDetail> YuvanidhiApplicantDetails { get; set; }
 
-   
+    public DbSet<RouteLink> RouteLinks { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -183,7 +183,7 @@ namespace gentela_Alela.Controllers
         #endregion
         #endregion
 
-        #region---Personal Details Method----------
+        #region---Personal Details Method Registration----------
 
         #region----Get Method----------
         public async Task<IActionResult> PersonalDetails(int? id)
@@ -461,7 +461,6 @@ namespace gentela_Alela.Controllers
             int? userid = HttpContext.Session.GetInt32(SD.KeyUser);
 
             var user = _db.PersonalDetails.Where(s => s.Isdeleted == false && s.Id == userid).FirstOrDefault();
-
 
 
             if (user == null)
